@@ -71,5 +71,5 @@ Final output is in the Combined files folder: one csv file per trial with 8000 r
 
 
 # 6. Machine learning models
-Original dataset is preprocessed using the relevant scripts (MATLAB). CNN, SVM and LSTM models can then be used for motion intention in different scenarios. Script produces plots and analysis in respective folders. Users will need to download the raw dataset from Apolloa () update the link in the preprocessing script.
+Original dataset is preprocessed using the relevant scripts (MATLAB). CNN, SVM and LSTM models can then be used for motion intention in different scenarios. Script produces plots and analysis in respective folders. Users will need to download the raw dataset from Apolloa (https://doi.org/10.17863/CAM.113504) update the link in the preprocessing script.
 
