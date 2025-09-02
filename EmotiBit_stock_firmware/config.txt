@@ -1,0 +1,1 @@
+{"WifiCredentials": [{"ssid": "OnePlus 11", "password" : "Pontevedra"}]}
