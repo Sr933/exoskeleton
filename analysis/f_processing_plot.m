@@ -9,7 +9,12 @@ plotsDir   = fullfile(projectRoot, 'plots');
 if ~exist(plotsDir, 'dir'); mkdir(plotsDir); end
 
 % ---------------- Data -----------------
-filename = "C:\Users\silas\Downloads\Exoskeleton Trial Data Set\Walking forwards\Combined_trial92_merged.csv";
+% Set the path to a representative merged CSV from the dataset
+% Default (repo-relative example); update if your filenames differ:
+filename = fullfile(projectRoot, 'data', 'raw', 'Walking forwards', 'Combined_trial92_merged.csv');
+if ~isfile(filename)
+    error('Sample file not found: %s\nPlease set variable "filename" to a valid merged CSV from the dataset (see README).', filename);
+end
 T = readtable(filename);
 
 % Detect sampling rate (fallback to 1000 Hz for time axis and filters)

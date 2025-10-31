@@ -9,8 +9,17 @@ plotsDir   = fullfile(projectRoot, 'plots');
 if ~exist(plotsDir, 'dir'); mkdir(plotsDir); end
 
 % ---------------- Files ----------------
-file_walk = "C:\Users\silas\Downloads\Exoskeleton Trial Data Set\Walking forwards\Combined_trial92_merged.csv";
-file_pick = "C:\Users\silas\Downloads\Exoskeleton Trial Data Set\Pick up object\Combined_trial7_merged.csv";
+% Provide paths to two representative trials from the dataset. Defaults are
+% repo-relative examples; adjust to your actual filenames if needed.
+file_walk = fullfile(projectRoot, 'data', 'raw', 'Walking forwards', 'Combined_trial92_merged.csv');
+file_pick = fullfile(projectRoot, 'data', 'raw', 'Pick up object', 'Combined_trial7_merged.csv');
+
+if ~isfile(file_walk)
+    error('file_walk not found: %s\nSet "file_walk" to a valid merged CSV under data/raw/.', file_walk);
+end
+if ~isfile(file_pick)
+    error('file_pick not found: %s\nSet "file_pick" to a valid merged CSV under data/raw/.', file_pick);
+end
 
 % ---------------- Styling ----------------
 figW = 11.0; figH = 3.6;  % inches

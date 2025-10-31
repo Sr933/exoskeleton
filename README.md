@@ -1,10 +1,18 @@
 <div align="center">
 
-# Exoskeleton: IMU/EMG Data Collection and Motion Intention Modeling
+<img src="overview.png" alt="EMG+IMU to model overview" style="max-width: 100%; width: 900px; border-radius: 8px;"/>
 
-End-to-end pipeline to collect IMU + EMG signals and train/evaluate ML models (CNN, LSTM, SVM) for lower-limb motion intention recognition.
+# Exoskeleton: IMU/EMG Dataset Analysis and Motion Intention Modeling
+
+Analysis and modeling of the public IMU + EMG dataset using ML models (CNN, LSTM, SVM) for lower-limb motion intention recognition.
 
 [Dataset (DOI)](https://doi.org/10.17863/CAM.113504) • [Peer‑reviewed article](https://www.nature.com/articles/s41598-025-22103-1)
+
+<br/>
+
+<strong>Deep learning for motion classification in ankle exoskeletons using surface EMG and IMU signals</strong><br/>
+Silas Ruhrberg Estévez, Josée Mallah, Dominika Kazieczko, Chenyu Tang & Luigi G. Occhipinti<br/>
+Scientific Reports, 2025 • Volume 15 • Article number: 38242
 
 </div>
 
@@ -12,43 +20,39 @@ End-to-end pipeline to collect IMU + EMG signals and train/evaluate ML models (C
 
 This repository contains:
 
-- Firmware and notes to configure wearable IMU hardware (EmotiBit/ESP32 based) for data collection.
 - MATLAB scripts to preprocess the public dataset, train neural and classical models, and reproduce figures/analyses.
 - Analysis utilities to generate confusion matrices, performance tables, and plots.
 
 The dataset used in this work is publicly available via the University of Cambridge Apollo repository: https://doi.org/10.17863/CAM.113504. The full study is published in Nature Scientific Reports: https://www.nature.com/articles/s41598-025-22103-1.
 
-> Note: This repository focuses on data preprocessing and modeling. The live data-collection notebook referenced in earlier notes is not included here.
+> Note: This repository focuses solely on analysis of the provided dataset; firmware and live data-collection utilities are out of scope.
 
 ## Table of contents
 
 - Quick start
 - Repository structure
 - Dataset
-- MATLAB environment and prerequisites
-- Reproduce results (end-to-end)
-- Scripts guide
-- Firmware (optional): flashing EmotiBit/ESP32 via PlatformIO
-- Results and figures
-- Citation
-- License and acknowledgements
+ Dataset: University of Cambridge Apollo Repository. DOI: https://doi.org/10.17863/CAM.113504
+ Article: Deep learning for motion classification in ankle exoskeletons using surface EMG and IMU signals. Scientific Reports (2025), Volume 15, Article 38242. https://www.nature.com/articles/s41598-025-22103-1
 
-## Quick start
+ BibTeX:
 
-1) Get the dataset
-- Download from the DOI landing page: https://doi.org/10.17863/CAM.113504
-- Unzip to a local folder, e.g., `data/raw/` (create if it doesn’t exist)
-
-2) Open MATLAB
-- Open this repo as your MATLAB project, or add it to the path.
-- Ensure required toolboxes are available (see below).
-
-3) Run preprocessing
-- Edit `src/a_preprocess_data.m` to point to your downloaded data path.
-- Run the script to generate processed datasets under `data/processed/`.
-
-4) Train a model
-- CNN: run `src/b_run_cnn_model.m`
+ ```bibtex
+ @article{RuhrbergEstevez2025,
+	 title = {Deep learning for motion classification in ankle exoskeletons using surface EMG and IMU signals},
+	 volume = {15},
+	 ISSN = {2045-2322},
+	 url = {http://dx.doi.org/10.1038/s41598-025-22103-1},
+	 DOI = {10.1038/s41598-025-22103-1},
+	 number = {1},
+	 journal = {Scientific Reports},
+	 publisher = {Springer Science and Business Media LLC},
+	 author = {Ruhrberg Estévez, Silas and Mallah, Josée and Kazieczko, Dominika and Tang, Chenyu and Occhipinti, Luigi G.},
+	 year = {2025},
+	 month = oct
+ }
+ ```
+ Maintainer: Silas Ruhrberg Estévez
 - LSTM: run `src/c_run_lstm_model.m`
 - SVM baseline: run `src/d_run_svm_baseline.m`
 - Random baseline: run `src/e_random_baseline.m`
@@ -68,12 +72,6 @@ analysis/                  % Reproducible analysis and figure scripts (MATLAB)
 	e_timeseries_classification.m
 	f_processing_plot.m
 	g_input_signals.m
-
-EmotiBit_stock_firmware/   % ESP32/EmotiBit firmware (PlatformIO project)
-	platformio.ini
-	config.txt               % Example Wi‑Fi config used by the device
-	src/                     % Firmware sources
-		...
 
 src/                       % MATLAB modeling pipeline
 	a_preprocess_data.m      % Point to raw data path; outputs processed features
@@ -151,30 +149,6 @@ Outputs are written to logical subfolders next to the scripts or into a results 
 - `analysis/*`
 	- Standalone figure and table generators. They assume model outputs exist; re-run after training to update figures.
 
-## Firmware (optional): EmotiBit/ESP32 via PlatformIO
-
-If you wish to collect your own data using EmotiBit hardware:
-
-1) Install PlatformIO for VS Code
-- https://platformio.org/install/ide
-
-2) Open the firmware project
-- In VS Code, open `EmotiBit_stock_firmware/` as a PlatformIO project.
-
-3) Configure Wi‑Fi credentials
-- Edit or create `EmotiBit_stock_firmware/config.txt` on the SD card used by the device:
-	```json
-	{"WifiCredentials": [{"ssid": "YOUR_SSID", "password": "YOUR_PASSWORD"}]}
-	```
-	Use a hotspot (enterprise networks like eduroam typically won’t work for direct device connections).
-
-4) Build and upload
-- Connect the board via USB, select the correct COM port, then build and upload from the PlatformIO toolbar.
-- For ESP32 WROOM you can also use the EmotiBit Firmware Installer: https://github.com/EmotiBit/EmotiBit_Docs/blob/master/Getting_Started.md
-
-5) EmotiBit software
-- Use EmotiBit Oscilloscope/Data Parser per the EmotiBit docs above. Configure UDP output and ensure your host is on the same network.
-
 ## Results and figures
 
 The `analysis/` scripts reproduce key tables and figures, including:
@@ -191,32 +165,14 @@ Figures are saved to disk by each script; see the script comments for output loc
 If you use this repository, the dataset, or the results in your research, please cite:
 
 - Dataset: University of Cambridge Apollo Repository. DOI: https://doi.org/10.17863/CAM.113504
-- Article: Nature Scientific Reports. https://www.nature.com/articles/s41598-025-22103-1
+- Article: Deep learning for motion classification in ankle exoskeletons using surface EMG and IMU signals. Scientific Reports (2025), Volume 15, Article 38242. https://www.nature.com/articles/s41598-025-22103-1
 
-Example BibTeX entries (fill in authors/year/title if needed from the landing pages):
 
-```bibtex
-@dataset{ruhrberg_exoskeleton_dataset_2025,
-	title        = {Exoskeleton IMU/EMG Dataset},
-	author       = {Ruhrberg Estevez, Silas and collaborators},
-	year         = {2025},
-	doi          = {10.17863/CAM.113504},
-	url          = {https://doi.org/10.17863/CAM.113504}
-}
-
-@article{ruhrberg_exoskeleton_sci_rep_2025,
-	title        = {Motion intention recognition for exoskeleton control using IMU and EMG},
-	author       = {Ruhrberg Estevez, Silas and collaborators},
-	journal      = {Scientific Reports},
-	year         = {2025},
-	url          = {https://www.nature.com/articles/s41598-025-22103-1}
-}
-```
+Ruhrberg Estévez, S., Mallah, J., Kazieczko, D. et al. Deep learning for motion classification in ankle exoskeletons using surface EMG and IMU signals. Sci Rep 15, 38242 (2025). https://doi.org/10.1038/s41598-025-22103-1
 
 ## License and acknowledgements
 
-- License: If a license file is not present, this code and documentation are © the authors. Please contact the maintainers for reuse beyond academic purposes.
-- Hardware and firmware interfacing relies on the EmotiBit platform: https://emotibit.com and its documentation.
+- License: MIT — see `LICENSE` in the repository root.
 - Thanks to all contributors and participants involved in data collection and validation.
 
 ---

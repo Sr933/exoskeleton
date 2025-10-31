@@ -1,13 +1,23 @@
 %% Exoskeleton preprocessing → data.mat (ALL subjects)
 % Configure paths and sampling rates
-main_folder = "C:\Users\silas\Exoskeleton project\Matlab code\Motion intention dataset";
+% Tip: By default, this script uses a repo-relative structure:
+%   - Raw data:       data/raw/
+%   - Processed data: data/processed/data.mat
+% You can override 'main_folder' and 'out_file' in the workspace before running.
+
+if ~exist('main_folder','var') || isempty(main_folder)
+    main_folder = fullfile(pwd, 'data', 'raw');
+end
+
 fsEMG = 1000;   % Hz
 fsIMU = 1000;   % Hz
 adc_vref  = 1.1;    % Volts (EMG conversion)
 adc_max   = 4095;   % e.g., 12-bit ADC
 
-% Output file (fixed path)
-out_file = "C:\Users\silas\Exoskeleton Data Acquisition and Processing Code\Preprocessed data\data.mat";
+% Output file (repo-relative by default)
+if ~exist('out_file','var') || isempty(out_file)
+    out_file = fullfile(pwd, 'data', 'processed', 'data.mat');
+end
 out_dir  = fileparts(out_file);
 if ~exist(out_dir, 'dir')
     mkdir(out_dir);
@@ -73,7 +83,7 @@ for i = 1:numel(folders)
             end
 
             for l = 1:numel(files)
-            %For debugginh
+            % For debugging, you can limit the number of files, e.g.:
             %for l = 1:2
                 % Build absolute path to file
                 if RECURSIVE_IN_PART
